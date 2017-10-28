@@ -43,9 +43,9 @@ class AddTodoForm extends Component {
             onChange={this.handleChange}
             value={this.state.todo}
             />
-          <Input onClick={this.handleRadio} name="status" type='radio' label='Normal' checked id="n"/>
-          <Input onClick={this.handleRadio} name="status" type='radio' label='Urgent' id="u"/>
-          <Input onClick={this.handleRadio} name="status" type='radio' label='Faible' id="f"/>
+          <Input onClick={this.handleRadio} name="status" type='radio' label='Normal' checked={this.state.status==='n'} id="n"/>
+          <Input onClick={this.handleRadio} name="status" type='radio' label='Urgent' checked={this.state.status==='u'} id="u"/>
+          <Input onClick={this.handleRadio} name="status" type='radio' label='Faible' checked={this.state.status==='f'} id="f"/>
         </Row>
       </form>
 
