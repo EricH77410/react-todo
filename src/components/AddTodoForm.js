@@ -1,20 +1,54 @@
 import React, { Component } from 'react';
 
-import { Button, Icon, Row, Input } from 'react-materialize';
+import { Row, Input } from 'react-materialize';
 
 class AddTodoForm extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      todo:null
+      todo:'',
+      status: 'n'
     };
+    this.handleChange = this.handleChange.bind(this)
+    this.submitTodo = this.submitTodo.bind(this)
+    this.handleRadio = this.handleRadio.bind(this)
   }
+
+  handleChange(e) {
+    this.setState({todo: e.target.value})
+  }
+
+  handleRadio(e) {
+    this.setState({status:e.target.id})
+  }
+
+  submitTodo(e){
+    e.preventDefault();
+    const todo = {
+      txt: this.state.todo,
+      status: this.state.status
+    }
+    this.props.addTodo(todo)
+    this.setState({todo:'',status:'n'})
+  }
+
   render(){
     return(
-      <Row>
-        <Input placeholder="Enter a task" s={6} label="Todo"/>
-      </Row>
+      <form onSubmit={this.submitTodo}>
+        <Row>
+          <Input
+            placeholder="Enter a task"
+            s={6} label="Todo"
+            onChange={this.handleChange}
+            value={this.state.todo}
+            />
+          <Input onClick={this.handleRadio} name="status" type='radio' label='Normal' checked id="n"/>
+          <Input onClick={this.handleRadio} name="status" type='radio' label='Urgent' id="u"/>
+          <Input onClick={this.handleRadio} name="status" type='radio' label='Faible' id="f"/>
+        </Row>
+      </form>
+
     );
   }
 }

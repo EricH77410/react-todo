@@ -8,16 +8,14 @@ import TodoList from './TodoList';
 
 const todos = [
   {
-    id: 1,
     text: 'Aller faire les courses',
     done: false,
-    status: 'normal'
+    status: 'n'
   },
   {
-    id: 2,
     text: 'Aller chercher Miles',
     done: false,
-    status: 'normal'
+    status: 'n'
   },
 ]
 
@@ -29,12 +27,41 @@ class App extends Component {
     this.state = {
       todos:todos
     };
+    this.addTodo = this.addTodo.bind(this)
   }
+
+  componentDidMount(){
+    try {
+          const td = JSON.parse(localStorage.getItem('todos'))
+          if (td) {
+            this.setState(()=>({todos: td}))
+          }
+  } catch(e) {
+      // ne fais rien si les données du localStoareg sont pourries
+      console.log(e);
+    }
+  }
+
+  addTodo(todo) {
+    console.log('add')
+    const newTodo = {
+      text:todo.txt,
+      isDone: false,
+      status: todo.status
+    }
+    const oldTodos = this.state.todos;
+    oldTodos.push(newTodo);
+
+    this.setState({todos: oldTodos})
+    const json = JSON.stringify(this.state.todos);
+    localStorage.setItem('todos',json)
+  }
+
   render() {
     return (
       <div className="App container">
         <Header />
-        <AddTodoForm />
+        <AddTodoForm addTodo = {this.addTodo}/>
         <TodoList todos={this.state.todos} />
       </div>
     );
