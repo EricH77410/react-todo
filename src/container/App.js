@@ -5,6 +5,9 @@ import Header from '../layout/Header';
 import AddTodoForm from '../components/AddTodoForm';
 import TodoList from './TodoList';
 
+// Style
+import './App.css'
+
 
 const todos = [
   {

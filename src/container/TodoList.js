@@ -8,28 +8,36 @@ class TodoList extends Component {
   remove(t){
     this.props.remove(t)
   }
+
+  getItems(filter){
+    const items = this.props.todos.filter((it)=>{
+      return it.status === filter;
+      })
+
+      return items.map((it)=>{
+        return (<Todo
+          item={it}
+          key={it.text}
+          remove={this.remove.bind(this)}
+          edit={this.props.edit}
+          setDone={this.props.setDone}
+          />)
+      })
+  }
+
   render(){
-    console.log(this.props)
-    const getItems = this.props.todos.map((it)=>{
-      return (<Todo
-        item={it}
-        key={it.text}
-        remove={this.remove.bind(this)}
-        edit={this.props.edit}
-        setDone={this.props.setDone}
-        />)
-    })
+
     return(
       <div>
         <Collapsible>
-	        <CollapsibleItem header='First' icon='filter_drama'>
-		        {getItems}
+	        <CollapsibleItem header='Urgent' icon='filter_drama' className="todos-urgent">
+		        {this.getItems('u')}
 	        </CollapsibleItem>
-	        <CollapsibleItem header='Second' icon='place'>
-		         {getItems}
+	        <CollapsibleItem header='Normal' icon='place' className="todos-normal">
+		         {this.getItems('n')}
 	        </CollapsibleItem>
-	        <CollapsibleItem header='Third' icon='whatshot'>
-		          {getItems}
+	        <CollapsibleItem header='Faible' icon='whatshot' className="todos-faible">
+		          {this.getItems('f')}
 	        </CollapsibleItem>
         </Collapsible>
       </div>

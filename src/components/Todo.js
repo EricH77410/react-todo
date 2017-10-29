@@ -4,7 +4,7 @@ import { Button } from 'react-materialize';
 
 const Todo = (props) => {
   return (
-    <div>
+    <div className="todo">
       <h5>{props.item.text}</h5>
       <div className="action">
         <Button

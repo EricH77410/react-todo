@@ -1,0 +1,22 @@
+.todo {
+  display: flex;
+  justify-content: space-between;
+  border-bottom: solid 1px #c5cae9;
+  margin-bottom: 2rem;
+}
+
+.todo button {
+  margin-right: 5px;
+}
+
+.todos-normal {
+  background: #e3f2fd;
+}
+
+.todos-urgent {
+  background: #ffebee
+}
+
+.todos-faible {
+  background: #fffde7;
+}
