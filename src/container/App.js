@@ -29,6 +29,8 @@ class App extends Component {
     };
     this.addTodo = this.addTodo.bind(this)
     this.removeTodo = this.removeTodo.bind(this)
+    this.editTodo = this.editTodo.bind(this)
+    this.setDone = this.setDone.bind(this)
   }
 
   componentDidMount(){
@@ -58,6 +60,14 @@ class App extends Component {
     localStorage.setItem('todos',json)
   }
 
+  editTodo(todo){
+    console.log('Edit : '+todo)
+  }
+
+  setDone(todo){
+    console.log('Sei as done : '+todo)
+  }
+
   removeTodo(txt){
     console.log('remove '+txt)
   }
@@ -67,7 +77,12 @@ class App extends Component {
       <div className="App container">
         <Header />
         <AddTodoForm addTodo = {this.addTodo}/>
-        <TodoList todos={this.state.todos} remove={this.removeTodo}/>
+        <TodoList
+          todos={this.state.todos}
+          remove={this.removeTodo}
+          edit={this.editTodo}
+          setDone={this.setDone}
+          />
       </div>
     );
   }

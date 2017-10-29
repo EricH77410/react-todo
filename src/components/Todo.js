@@ -6,7 +6,32 @@ const Todo = (props) => {
   return (
     <div>
       <h5>{props.item.text}</h5>
-      <Button onClick={()=>props.remove(props.item.text)} floating  className='red' waves='light' icon='remove' />
+      <div className="action">
+        <Button
+          onClick={()=>props.remove(props.item.text)}
+          floating
+          className='red'
+          waves='light'
+          icon='remove'
+        />
+        <Button
+          onClick={()=>props.edit(props.item.text)}
+          floating
+          icon='edit'
+          tooltip='Edit element'
+          className='orange'
+          waves='light'
+        />
+        <Button
+          onClick={()=>props.setDone(props.item.text)}
+          floating
+          icon='checked'
+          tooltip='Set as done'
+          className='blue'
+          waves='light'
+        />
+      </div>
+
     </div>
   )
 }

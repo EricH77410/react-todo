@@ -11,7 +11,13 @@ class TodoList extends Component {
   render(){
     console.log(this.props)
     const getItems = this.props.todos.map((it)=>{
-      return <Todo item={it} key={it.text} remove={this.remove.bind(this)}/>
+      return (<Todo
+        item={it}
+        key={it.text}
+        remove={this.remove.bind(this)}
+        edit={this.props.edit}
+        setDone={this.props.setDone}
+        />)
     })
     return(
       <div>
