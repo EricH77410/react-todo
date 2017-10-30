@@ -20,3 +20,7 @@
 .todos-faible {
   background: #fffde7;
 }
+
+.done {
+  color: lightslategray;
+}

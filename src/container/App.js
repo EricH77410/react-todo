@@ -30,10 +30,11 @@ class App extends Component {
     this.state = {
       todos:todos
     };
-    this.addTodo = this.addTodo.bind(this)
-    this.removeTodo = this.removeTodo.bind(this)
-    this.editTodo = this.editTodo.bind(this)
-    this.setDone = this.setDone.bind(this)
+    this.addTodo = this.addTodo.bind(this);
+    this.removeTodo = this.removeTodo.bind(this);
+    this.editTodo = this.editTodo.bind(this);
+    this.setDone = this.setDone.bind(this);
+    this.saveData = this.saveData.bind(this);
   }
 
   componentDidMount(){
@@ -59,16 +60,29 @@ class App extends Component {
     oldTodos.push(newTodo);
 
     this.setState({todos: oldTodos})
-    const json = JSON.stringify(this.state.todos);
-    localStorage.setItem('todos',json)
+    this.saveData();
   }
 
   editTodo(todo){
     console.log('Edit : '+todo)
   }
 
+  saveData(){
+    const json = JSON.stringify(this.state.todos);
+    localStorage.setItem('todos',json)
+  }
+
   setDone(todo){
-    console.log('Sei as done : '+todo)
+    let prevState = this.state.todos
+    prevState.forEach((t)=>{
+      if(t.text === todo){
+        t.done = !t.done;
+        return
+      }
+    })
+    console.log('Set as done : '+todo)
+    this.setState({todos: prevState})
+    this.saveData()
   }
 
   removeTodo(txt){
