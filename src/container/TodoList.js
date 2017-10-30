@@ -19,6 +19,7 @@ class TodoList extends Component {
           item={it}
           key={it.text}
           remove={this.remove.bind(this)}
+          setEdited={this.props.setEdited}
           edit={this.props.edit}
           setDone={this.props.setDone}
           />)

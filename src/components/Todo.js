@@ -15,7 +15,7 @@ const Todo = (props) => {
           icon='remove'
         />
         <Button
-          onClick={()=>props.edit(props.item.text)}
+          onClick={()=>props.setEdited(props.item)}
           floating
           icon='edit'
           tooltip='Edit element'

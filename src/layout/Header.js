@@ -1,12 +1,28 @@
 import React from 'react';
 
-import { Navbar, NavItem } from 'react-materialize';
+import { Navbar, Badge, NavItem } from 'react-materialize';
 
-const Header = () => {
+const Header = (props) => {
   return (
     <Navbar brand='Todo manager' right>
-      <NavItem href="">Link 1</NavItem>
-      <NavItem href="">Link 2</NavItem>
+      <NavItem>
+        <Badge newIcon>
+          Urgent {props.urgent}
+        </Badge>
+      </NavItem>
+      
+      <NavItem>
+        <Badge newIcon>
+          Normal {props.normal}
+        </Badge>
+      </NavItem>
+      
+      <NavItem>
+        <Badge newIcon>
+          Faible {props.faible}
+        </Badge>
+      </NavItem>
+      
     </Navbar>
   )
 }
