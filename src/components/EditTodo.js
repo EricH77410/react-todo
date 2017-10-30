@@ -3,6 +3,18 @@ import React from 'react';
 import Modal from 'react-modal';
 import { Button, Row, Input } from 'react-materialize';
 
+const customStyle={
+    content : {
+        top                   : '50%',
+        left                  : '50%',
+        right                 : 'auto',
+        bottom                : 'auto',
+        marginRight           : '-50%',
+        transform             : 'translate(-50%, -50%)',
+        width                  : '40%'
+      }
+}
+
 export default class EditTodo extends React.Component{
     constructor(props) {
         super(props)
@@ -32,17 +44,18 @@ export default class EditTodo extends React.Component{
                <Modal 
                isOpen={this.props.isOpen}
                onRequestClose={this.modifiedTodo}
+               style={customStyle}
                >
                <Row>
                 <Input
                 placeholder="Enter a task"
-                s={6} label="Todo"
+                s={12} label="Todo"
                 onChange={this.handleChange}
                 value={this.state.text}
                 />
-                 <Button waves='light' onClick={this.modifiedTodo}>Save</Button>
+                 
                </Row>
-            
+               <Button waves='light' onClick={this.modifiedTodo}>Save</Button>
                </Modal>
         )
     }
