@@ -9,27 +9,12 @@ import EditTodo from '../components/EditTodo';
 // Style
 import './App.css'
 
-
-const todos = [
-  {
-    text: 'Aller faire les courses',
-    done: false,
-    status: 'n'
-  },
-  {
-    text: 'Aller chercher Miles',
-    done: false,
-    status: 'n'
-  },
-]
-
-
 class App extends Component {
   constructor(props){
     super(props);
 
     this.state = {
-      todos:todos,
+      todos:[],
       editedTodo:null
     };
     this.addTodo = this.addTodo.bind(this);
@@ -38,6 +23,7 @@ class App extends Component {
     this.setDone = this.setDone.bind(this);
     this.saveData = this.saveData.bind(this);
     this.setEditedTodo = this.setEditedTodo.bind(this);
+    this.removeAll = this.removeAll.bind(this);
   }
 
   componentDidMount(){
@@ -62,9 +48,15 @@ class App extends Component {
     return total;
   }
 
+  removeAll(){
+    this.setState({todos:[]})
+    this.saveData();
+  }
+
   addTodo(todo) {
     console.log('add')
     const newTodo = {
+      id:new Date(),
       text:todo.txt,
       isDone: false,
       status: todo.status
@@ -76,19 +68,17 @@ class App extends Component {
     this.saveData();
   }
 
-  editTodo(todo){
+  editTodo(todo){    
     let prevState = this.state.todos;
     prevState.forEach((it)=>{
-      if (it.text === todo.text){
-        it = todo;
-        return
+      if (it.id === todo.id){
+        it.text = todo.text;
+        it.status= todo.status;
+        it.done = todo.done;
       }
     });
-
     this.setState({todos: prevState, editedTodo:null});
     this.saveData()
-
-    console.log('Edit : '+todo)
   }
 
   setEditedTodo(todo){
@@ -100,21 +90,21 @@ class App extends Component {
     localStorage.setItem('todos',json)
   }
 
-  setDone(todo){
-    let prevState = this.state.todos
+  setDone(id){
+    const prevState = this.state.todos
+    let newState = []
     prevState.forEach((t)=>{
-      if(t.text === todo){
+      if(t.id === id){
         t.done = !t.done;
-        return
       }
+      newState.push(t)
     })
-    console.log('Set as done : '+todo)
-    this.setState({todos: prevState})
+    this.setState({todos: newState})
     this.saveData()
   }
 
-  removeTodo(txt){
-    console.log('remove '+txt)
+  removeTodo(id){
+    console.log('remove '+id)
   }
 
   render() {
@@ -131,6 +121,7 @@ class App extends Component {
         <TodoList
           todos={this.state.todos}
           remove={this.removeTodo}
+          removeall = {this.removeAll}
           edit={this.editTodo}
           setEdited={this.setEditedTodo}
           setDone={this.setDone}

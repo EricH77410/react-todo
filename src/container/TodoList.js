@@ -30,6 +30,7 @@ class TodoList extends Component {
 
     return(
       <div>
+        <button onClick={this.props.removeall}>Remove all</button>
         <Collapsible>
 	        <CollapsibleItem header='Urgent' icon='filter_drama' className="todos-urgent">
 		        {this.getItems('u')}

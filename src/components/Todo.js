@@ -23,7 +23,7 @@ const Todo = (props) => {
           waves='light'
         />
         <Button
-          onClick={()=>props.setDone(props.item.text)}
+          onClick={()=>props.setDone(props.item.id)}
           floating
           icon='checked'
           tooltip='Set as done'
