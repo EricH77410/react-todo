@@ -17,13 +17,14 @@ class App extends Component {
       todos:[],
       editedTodo:null
     };
-    this.addTodo = this.addTodo.bind(this);
-    this.removeTodo = this.removeTodo.bind(this);
-    this.editTodo = this.editTodo.bind(this);
-    this.setDone = this.setDone.bind(this);
-    this.saveData = this.saveData.bind(this);
-    this.setEditedTodo = this.setEditedTodo.bind(this);
-    this.removeAll = this.removeAll.bind(this);
+    this.addTodo        = this.addTodo.bind(this);
+    this.removeTodo     = this.removeTodo.bind(this);
+    this.editTodo       = this.editTodo.bind(this);
+    this.setDone        = this.setDone.bind(this);
+    this.saveData       = this.saveData.bind(this);
+    this.setEditedTodo  = this.setEditedTodo.bind(this);
+    this.removeAll      = this.removeAll.bind(this);
+    this.clearEditTodo  = this.clearEditTodo.bind(this);
   }
 
   componentDidMount(){
@@ -64,8 +65,9 @@ class App extends Component {
     const oldTodos = this.state.todos;
     oldTodos.push(newTodo);
 
-    this.setState({todos: oldTodos})
-    this.saveData();
+    this.setState({todos: oldTodos}, ()=>{
+      this.saveData();
+    })    
   }
 
   editTodo(todo){    
@@ -77,12 +79,17 @@ class App extends Component {
         it.done = todo.done;
       }
     });
-    this.setState({todos: prevState, editedTodo:null});
-    this.saveData()
+    this.setState({todos: prevState, editedTodo:null},()=>{
+      this.saveData()
+    });    
   }
 
   setEditedTodo(todo){
     this.setState({editedTodo: todo});    
+  }
+
+  clearEditTodo(){
+    this.setState({editedTodo: null})
   }
 
   saveData(){
@@ -99,12 +106,19 @@ class App extends Component {
       }
       newState.push(t)
     })
-    this.setState({todos: newState})
-    this.saveData()
+    this.setState({todos: newState}, ()=>{
+      this.saveData()
+    });    
   }
 
   removeTodo(id){
-    console.log('remove '+id)
+    let newState = this.state.todos.filter((it)=>{
+      return it.id !== id;
+    })
+    this.setState({todos: newState}, ()=>{
+      this.saveData();
+    });
+    
   }
 
   render() {
@@ -115,7 +129,7 @@ class App extends Component {
           normal = {this.count('n')}
           faible = {this.count('f')}
         />
-        {this.state.editedTodo ?  <EditTodo todo={this.state.editedTodo} close={this.editTodo} isOpen={true}/>:''}
+        {this.state.editedTodo ?  <EditTodo todo={this.state.editedTodo} save={this.editTodo} close={this.clearEditTodo} isOpen={true}/>:''}
        
         <AddTodoForm addTodo = {this.addTodo}/>
         <TodoList

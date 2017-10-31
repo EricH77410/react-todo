@@ -8,7 +8,7 @@ const Todo = (props) => {
       <h5 className={props.item.done ? "done":"not-done" }>{props.item.text}</h5>
       <div className="action">
         <Button
-          onClick={()=>props.remove(props.item.text)}
+          onClick={()=>props.remove(props.item.id)}
           floating
           className='red'
           waves='light'
