@@ -35,7 +35,7 @@ class AddTodoForm extends Component {
 
   render(){
     return(
-      <form onSubmit={this.submitTodo}>
+      <form onSubmit={this.submitTodo} className="add-todo">
         <Row>
           <Input
             placeholder="Enter a task"

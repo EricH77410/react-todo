@@ -29,3 +29,11 @@
   margin-bottom: 30px;
   margin-top: 30px;
 }
+
+.nav-title{
+  font-weight: bold;
+}
+
+.add-todo {
+  margin-top: 3.2rem;
+}
