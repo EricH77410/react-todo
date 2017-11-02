@@ -37,6 +37,7 @@ class AddTodoForm extends Component {
     return(
       <form onSubmit={this.submitTodo} className="add-todo">
         <Row>
+          <h5 className="form-title">Add a todo</h5>
           <Input
             placeholder="Enter a task"
             s={6} label="Todo"

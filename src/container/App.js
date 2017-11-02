@@ -48,7 +48,7 @@ class App extends Component {
     })
     return total;
   }
-
+  
   removeAll(){
     this.setState({todos:[]})
     this.saveData();
