@@ -5,7 +5,7 @@ import { Button } from 'react-materialize';
 const Todo = (props) => {
   return (
     <div className="todo">
-      <h5 className={props.item.done ? "done":"not-done" }>{props.item.text}</h5>
+      <p className={props.item.done ? "done":"not-done" }>{props.item.text}</p>
       <div className="action">
         <Button
           onClick={()=>props.remove(props.item.id)}
