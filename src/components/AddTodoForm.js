@@ -1,11 +1,15 @@
 import React, { Component } from 'react';
 
+import { connect } from 'react-redux';
+
+import { addTodo } from '../actions/index';
+
 import { Row, Input } from 'react-materialize';
 
 class AddTodoForm extends Component {
   constructor(props){
     super(props);
-
+    console.log(props)
     this.state = {
       todo:'',
       status: 'n'
@@ -20,17 +24,18 @@ class AddTodoForm extends Component {
   }
 
   handleRadio(e) {
-    this.setState({status:e.target.id})
+    const status = e.target.id
+    this.setState({status})
   }
 
   submitTodo(e){
-    e.preventDefault();
+     e.preventDefault();
     const todo = {
-      txt: this.state.todo,
-      status: this.state.status
+      text:this.state.todo,
+      status:this.state.status
     }
-    this.props.addTodo(todo)
-    this.setState({todo:'',status:'n'})
+    console.log({todo})
+    this.props.dispatch(addTodo(todo));
   }
 
   render(){
@@ -54,4 +59,4 @@ class AddTodoForm extends Component {
   }
 }
 
-export default AddTodoForm;
+export default connect()(AddTodoForm);

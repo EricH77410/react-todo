@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux'
+import { loadTodos, saveAll, removeAll } from '../actions';
 
 // Components
 import Header from '../layout/Header';
@@ -9,15 +11,12 @@ import EditTodo from '../components/EditTodo';
 // Style
 import './App.css'
 
+// TODO: Ajouter un reducerFilter pour filtrer le todos done ou pas
+
 class App extends Component {
   constructor(props){
     super(props);
 
-    this.state = {
-      todos:[],
-      editedTodo:null
-    };
-    this.addTodo        = this.addTodo.bind(this);
     this.removeTodo     = this.removeTodo.bind(this);
     this.editTodo       = this.editTodo.bind(this);
     this.setDone        = this.setDone.bind(this);
@@ -29,10 +28,7 @@ class App extends Component {
 
   componentDidMount(){
     try {
-          const td = JSON.parse(localStorage.getItem('todos'))
-          if (td) {
-            this.setState(()=>({todos: td}))
-          }
+      this.props.dispatch(loadTodos());
   } catch(e) {
       // ne fais rien si les données du localStoareg sont pourries
       console.log(e);
@@ -48,29 +44,13 @@ class App extends Component {
     })
     return total;
   }
-  
+
   removeAll(){
-    this.setState({todos:[]})
-    this.saveData();
+    this.props.dispatch(removeAll());
+    this.props.dispatch(saveAll());
   }
 
-  addTodo(todo) {
-    console.log('add')
-    const newTodo = {
-      id:new Date(),
-      text:todo.txt,
-      isDone: false,
-      status: todo.status
-    }
-    const oldTodos = this.state.todos;
-    oldTodos.push(newTodo);
-
-    this.setState({todos: oldTodos}, ()=>{
-      this.saveData();
-    })    
-  }
-
-  editTodo(todo){    
+  editTodo(todo){
     let prevState = this.state.todos;
     prevState.forEach((it)=>{
       if (it.id === todo.id){
@@ -81,11 +61,11 @@ class App extends Component {
     });
     this.setState({todos: prevState, editedTodo:null},()=>{
       this.saveData()
-    });    
+    });
   }
 
   setEditedTodo(todo){
-    this.setState({editedTodo: todo});    
+    this.setState({editedTodo: todo});
   }
 
   clearEditTodo(){
@@ -93,8 +73,7 @@ class App extends Component {
   }
 
   saveData(){
-    const json = JSON.stringify(this.state.todos);
-    localStorage.setItem('todos',json)
+    this.props.dispatch(saveAll())
   }
 
   setDone(id){
@@ -108,7 +87,7 @@ class App extends Component {
     })
     this.setState({todos: newState}, ()=>{
       this.saveData()
-    });    
+    });
   }
 
   removeTodo(id){
@@ -118,22 +97,16 @@ class App extends Component {
     this.setState({todos: newState}, ()=>{
       this.saveData();
     });
-    
+
   }
 
   render() {
     return (
       <div className="App container">
-        <Header 
-          urgent = {this.count('u')}
-          normal = {this.count('n')}
-          faible = {this.count('f')}
-        />
-        {this.state.editedTodo ?  <EditTodo todo={this.state.editedTodo} save={this.editTodo} close={this.clearEditTodo} isOpen={true}/>:''}
-       
-        <AddTodoForm addTodo = {this.addTodo}/>
+
+        <Header />
+        <AddTodoForm />
         <TodoList
-          todos={this.state.todos}
           remove={this.removeTodo}
           removeall = {this.removeAll}
           edit={this.editTodo}
@@ -144,4 +117,5 @@ class App extends Component {
     );
   }
 }
-export default App;
+
+export default connect()(App);

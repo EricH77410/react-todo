@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+import { removeTodo } from '../actions'
 
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 
@@ -6,7 +8,7 @@ import Todo from '../components/Todo';
 
 class TodoList extends Component {
   remove(t){
-    this.props.remove(t)
+    this.props.dispatch(removeTodo(t))
   }
 
   getItems(filter){
@@ -47,4 +49,10 @@ class TodoList extends Component {
   }
 }
 
-export default TodoList;
+const mapStateToProps = (state) => {
+  return {
+    todos:state.todos
+  }
+}
+
+export default connect(mapStateToProps)(TodoList);

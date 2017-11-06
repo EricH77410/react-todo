@@ -1,14 +1,19 @@
 import React from 'react'
+import { connect } from 'react-redux';
+import { removeTodo } from '../actions';
 
 import { Button } from 'react-materialize';
 
+// TODO: Mettre à jour le localStorage lors de la suppression d'un item
+
 const Todo = (props) => {
+  const id = props.item.id;
   return (
     <div className="todo">
       <p className={props.item.done ? "done":"not-done" }>{props.item.text}</p>
       <div className="action">
         <Button
-          onClick={()=>props.remove(props.item.id)}
+          onClick={()=>props.dispatch(removeTodo({id}))}
           floating
           className='red'
           waves='light'
@@ -36,4 +41,4 @@ const Todo = (props) => {
   )
 }
 
-export default Todo;
+export default connect()(Todo);
