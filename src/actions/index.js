@@ -7,7 +7,8 @@ export const addTodo = ({ text, status } = {}) => {
     todo: {
       text,
       status,
-      id: uuid()
+      id: uuid(),
+      done: false
     }
   }
 }

@@ -1,4 +1,6 @@
 import React from 'react';
+import { connect } from 'react-redux';
+import { editTodo } from '../actions';
 
 import Modal from 'react-modal';
 import { Button, Input } from 'react-materialize';
@@ -15,7 +17,7 @@ const customStyle={
       }
 }
 
-export default class EditTodo extends React.Component{
+class EditTodo extends React.Component{
     constructor(props) {
         super(props)
         this.state = {
@@ -34,23 +36,24 @@ export default class EditTodo extends React.Component{
     }
 
     handleRadio(e){
-        console.log(e.target.value)
         this.setState({status: e.target.value})
     }
 
-    setDone(e){
-        console.log(e.target.value)        
+    setDone(e){      
         this.setState({done: !this.state.done})
     }
 
-    modifiedTodo(){
-        const todo = {
+    modifiedTodo(e){
+        e.preventDefault()
+        this.props.dispatch(editTodo({
             id: this.props.todo.id,
-            text: this.state.text,
-            status: this.state.status,
-            done: this.state.done
-        }
-        this.props.save(todo);
+            payload: {
+                text: this.state.text,
+                status: this.state.status,
+                done: this.state.done
+            }
+        }));
+        this.props.close()
     }
     render(){
         return (
@@ -60,7 +63,6 @@ export default class EditTodo extends React.Component{
                style={customStyle}
                >
                <form>
-                    
                         <Input
                             placeholder="Enter a task"
                             s={12} label="Todo"
@@ -80,7 +82,6 @@ export default class EditTodo extends React.Component{
                                 type='switch'                        
                                 onLabel='Done'
                                 offLabel='Pending'                                
-                                value={this.state.done ? 'on':'off'}
                                 defaultChecked={this.state.done}
                             />
                         </div>
@@ -91,3 +92,5 @@ export default class EditTodo extends React.Component{
         )
     }
 }
+
+export default connect()(EditTodo);

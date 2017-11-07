@@ -1,6 +1,6 @@
 import React from 'react'
 import { connect } from 'react-redux';
-import { removeTodo } from '../actions';
+import { removeTodo, editTodo } from '../actions';
 
 import { Button } from 'react-materialize';
 
@@ -28,7 +28,10 @@ const Todo = (props) => {
           waves='light'
         />
         <Button
-          onClick={()=>props.setDone(props.item.id)}
+          onClick={()=>props.dispatch(editTodo({
+            id,
+            payload: {done:!props.item.done}
+          }))}
           floating
           icon='checked'
           tooltip='Set as done'

@@ -1,30 +1,38 @@
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import { removeTodo } from '../actions'
+import { setTextFilter } from '../actions/filter';
+import selectTodos from '../selector/getVisibleTodos';
 
 import { Collapsible, CollapsibleItem } from 'react-materialize';
 
 import Todo from '../components/Todo';
 
 class TodoList extends Component {
+
   remove(t){
     this.props.dispatch(removeTodo(t))
+  }
+
+  textChange = (e) => {
+    const txt = e.target.value;
+    this.props.dispatch(setTextFilter(txt));
   }
 
   getItems(filter){
     const items = this.props.todos.filter((it)=>{
       return it.status === filter;
-      })
+    })
 
       return items.map((it)=>{
         return (<Todo
           item={it}
-          key={it.text}
+          key={it.id}
           remove={this.remove.bind(this)}
           setEdited={this.props.setEdited}
           edit={this.props.edit}
           setDone={this.props.setDone}
-          />)
+        />)
       })
   }
 
@@ -51,7 +59,8 @@ class TodoList extends Component {
 
 const mapStateToProps = (state) => {
   return {
-    todos:state.todos
+    todos:selectTodos(state.todos,state.filter),
+    filter: state.filter
   }
 }
 

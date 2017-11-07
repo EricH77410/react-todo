@@ -9,7 +9,6 @@ import { Row, Input } from 'react-materialize';
 class AddTodoForm extends Component {
   constructor(props){
     super(props);
-    console.log(props)
     this.state = {
       todo:'',
       status: 'n'
@@ -36,6 +35,7 @@ class AddTodoForm extends Component {
     }
     console.log({todo})
     this.props.dispatch(addTodo(todo));
+    this.setState(()=>({todo:'',status:'n'}))
   }
 
   render(){

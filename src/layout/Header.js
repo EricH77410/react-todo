@@ -4,19 +4,19 @@ import { connect } from 'react-redux';
 import { Navbar,  NavItem } from 'react-materialize';
 
 const Header = (props) => {
-
+  
   return (
-    <Navbar brand='Todo manager' right>
+    <Navbar brand='Todo manager' right>      
       <NavItem className="nav-item">
-          Urgent {props.urgent}
+          Urgent <span className="badge-item">{props.todos.filter((t)=>t.status==='u').length}</span>
       </NavItem>
 
       <NavItem className="nav-item">
-          Normal {props.normal}
+          Normal <span className="badge-item">{props.todos.filter((t)=>t.status==='n').length}</span>
       </NavItem>
 
       <NavItem className="nav-item">
-          Faible {props.faible}
+          Faible <span className="badge-item">{props.todos.filter((t)=>t.status==='f').length}</span>
       </NavItem>
     </Navbar>
   )

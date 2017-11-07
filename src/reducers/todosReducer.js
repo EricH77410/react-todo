@@ -5,11 +5,11 @@ const todosReducerDefaultState = [];
 const todosReducer = (state = todosReducerDefaultState,action) => {
     switch (action.type) {
         case 'LOAD_TODO':
-        const td = JSON.parse(localStorage.getItem('todos'))
-        if (td) {
-          return td
-        }
-        break;
+            const td = JSON.parse(localStorage.getItem('todos'))
+            if (td) {
+                return td
+            }
+            break;
         case 'SAVE_ALL':
           const json = JSON.stringify(this.state.todos);
           localStorage.setItem('todos',json)

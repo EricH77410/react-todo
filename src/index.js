@@ -12,7 +12,7 @@ import registerServiceWorker from './registerServiceWorker';
 const store = configureStore()
 
 store.subscribe(()=>{
-  console.log(store.getState())
+  console.log(store.getState());
 })
 
 ReactDOM.render(

@@ -7,6 +7,7 @@ import Header from '../layout/Header';
 import AddTodoForm from '../components/AddTodoForm';
 import TodoList from './TodoList';
 import EditTodo from '../components/EditTodo';
+import TodosFilter from '../components/TodosFilter';
 
 // Style
 import './App.css'
@@ -16,7 +17,9 @@ import './App.css'
 class App extends Component {
   constructor(props){
     super(props);
-
+    this.state = {
+      editedTodo: null
+    }
     this.removeTodo     = this.removeTodo.bind(this);
     this.editTodo       = this.editTodo.bind(this);
     this.setDone        = this.setDone.bind(this);
@@ -65,6 +68,7 @@ class App extends Component {
   }
 
   setEditedTodo(todo){
+    console.log('edit');
     this.setState({editedTodo: todo});
   }
 
@@ -103,9 +107,14 @@ class App extends Component {
   render() {
     return (
       <div className="App container">
-
+        {this.state.editedTodo && <EditTodo 
+        todo={this.state.editedTodo} 
+        isOpen={this.state.editedTodo ? true:false}
+        close={this.clearEditTodo}
+        />}
         <Header />
         <AddTodoForm />
+        <TodosFilter />
         <TodoList
           remove={this.removeTodo}
           removeall = {this.removeAll}
