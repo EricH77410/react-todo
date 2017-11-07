@@ -5,3 +5,10 @@ export const setTextFilter = (term)=>{
         term
     }
 }
+
+export const setDoneFilter = (value)=>{
+    return {
+        type:'SORT_BY_DONE',
+        value
+    }
+}

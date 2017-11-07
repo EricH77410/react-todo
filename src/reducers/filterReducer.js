@@ -11,7 +11,8 @@ const filterReducer = (state = filterReducerInitialState, action) => {
                 text:action.term
             }
         case 'SORT_BY_DONE':
-            const sortBy = action.sort==='done' ? 'done':'pending'
+        console.log(action);
+            const sortBy = action.value==='done' ? 'done':'pending'
             return {
                 ...state,
                 sortBy

@@ -6,7 +6,16 @@ import { Navbar,  NavItem } from 'react-materialize';
 const Header = (props) => {
   
   return (
-    <Navbar brand='Todo manager' right>      
+    <Navbar brand='Todo manager' right> 
+      <NavItem className="nav-item">
+          Total <span className="badge-item">{props.todos.length}</span>
+      </NavItem>
+      <NavItem className="nav-item">
+          Done <span className="badge-item">{props.todos.filter((t)=>t.done===true).length}</span>
+      </NavItem>
+      <NavItem className="nav-item">
+          Pending <span className="badge-item">{props.todos.filter((t)=>t.done===false).length}</span>
+      </NavItem>     
       <NavItem className="nav-item">
           Urgent <span className="badge-item">{props.todos.filter((t)=>t.status==='u').length}</span>
       </NavItem>

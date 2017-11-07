@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { setTextFilter } from '../actions/filter'
+import { setTextFilter, setDoneFilter } from '../actions/filter'
 
 import { Input, Icon, Row } from 'react-materialize';
 
@@ -26,6 +26,11 @@ const TodosFilter = (props) =>{
             onLabel='Done'
             offLabel='Pending'                                
             defaultChecked="false"
+            onChange={(e)=>{
+                const chk = e.target.checked;
+                const value = chk ? 'done':'pending'
+                props.dispatch(setDoneFilter(value))
+            }}
             />
         </Row>
     </div>
