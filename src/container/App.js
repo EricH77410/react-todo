@@ -5,7 +5,8 @@ import { loadTodos, saveAll, removeAll } from '../actions';
 // Components
 import Header from '../layout/Header';
 import AddTodoForm from '../components/AddTodoForm';
-import TodoList from './TodoList';
+//import TodoList from './TodoList';
+import TodosList2 from './TodosList2'
 import EditTodo from '../components/EditTodo';
 import TodosFilter from '../components/TodosFilter';
 
@@ -115,7 +116,7 @@ class App extends Component {
         <Header />
         <AddTodoForm />
         <TodosFilter />
-        <TodoList
+        <TodosList2
           remove={this.removeTodo}
           removeall = {this.removeAll}
           edit={this.editTodo}

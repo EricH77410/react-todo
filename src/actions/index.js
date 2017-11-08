@@ -1,12 +1,13 @@
 import uuid from 'uuid';
 
-export const addTodo = ({ text, status } = {}) => {
+export const addTodo = ({ text, status, deadLine } = {}) => {
 
   return {
     type:'ADD_TODO',
     todo: {
       text,
       status,
+      deadLine,
       id: uuid(),
       done: false
     }

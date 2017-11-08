@@ -2,7 +2,7 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { setTextFilter, setDoneFilter } from '../actions/filter'
+import { setTextFilter } from '../actions/filter'
 
 import { Input, Icon, Row } from 'react-materialize';
 
@@ -19,19 +19,7 @@ const TodosFilter = (props) =>{
               props.dispatch(setTextFilter(term))
               }}
           ><Icon>search</Icon></Input>
-          <Input 
-            onClick={this.setDone} 
-            name='on' 
-            type='switch'                        
-            onLabel='Done'
-            offLabel='Pending'                                
-            defaultChecked="false"
-            onChange={(e)=>{
-                const chk = e.target.checked;
-                const value = chk ? 'done':'pending'
-                props.dispatch(setDoneFilter(value))
-            }}
-            />
+          
         </Row>
     </div>
     )

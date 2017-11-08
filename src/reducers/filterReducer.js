@@ -1,6 +1,7 @@
 const filterReducerInitialState = {
     text:'',
-    sortBy:'done'
+    sortBy:'done',
+    type:''
 }
 
 const filterReducer = (state = filterReducerInitialState, action) => {
@@ -11,11 +12,16 @@ const filterReducer = (state = filterReducerInitialState, action) => {
                 text:action.term
             }
         case 'SORT_BY_DONE':
-        console.log(action);
             const sortBy = action.value==='done' ? 'done':'pending'
             return {
                 ...state,
                 sortBy
+            }
+        case 'SORT_BY_TYPE':
+            const type = action.value;
+            return {
+                ...state,
+                type
             }
         default:
             return state;
