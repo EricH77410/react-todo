@@ -14,7 +14,7 @@ class TodoList extends Component {
       }
     getItems = () => {
         const items = this.props.todos
-      
+
             return items.map((it)=>{
               return (<Todo
                 item={it}
@@ -26,9 +26,9 @@ class TodoList extends Component {
               />)
             })
     }
-    render() { 
-        return ( 
-            <div>
+    render() {
+        return (
+            <div className="container">
                 <Table
                 hoverable={true}
                 responsive={true}
@@ -37,8 +37,8 @@ class TodoList extends Component {
                     <thead>
                         <tr>
                             <th>Todo</th>
+                            <th>Due Date</th>
                             <th>Actions</th>
-                            <th>Date</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -56,5 +56,5 @@ const mapStateToProps = (state) => {
       filter: state.filter
     }
   }
- 
+
 export default connect(mapStateToProps)(TodoList);

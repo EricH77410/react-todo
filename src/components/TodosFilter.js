@@ -2,33 +2,58 @@ import React from 'react';
 
 import { connect } from 'react-redux';
 
-import { setTextFilter } from '../actions/filter'
+import { DateRangePicker } from 'react-dates'
 
-import { Input, Icon, Row } from 'react-materialize';
+import { setTextFilter, setStartDate, setEndDate } from '../actions/filter'
 
-const TodosFilter = (props) =>{
+import { Input, Icon } from 'react-materialize';
+
+class TodosFilter extends React.Component {
+  state = {
+    calendarFocused:null
+  }
+  onDatesChange = ({startDate, endDate}) => {
+    this.props.dispatch(setStartDate(startDate));
+    this.props.dispatch(setEndDate(endDate));
+  }
+  onFocusChange = (calendarFocused) => {
+    this.setState(()=>({calendarFocused}))
+  }
+  render() {
     return (
-        <div>
-        <Row>
-          <Input 
-          className="input-search" 
-          placeholder="Contient le texte ..." 
-          label="Filtre"
-          onChange={(e)=>{
+        <div className="container filter-area">
+
+            <Input
+            className="input-search"
+            placeholder="Contient le texte ..."
+            label="Filtre"
+            onChange={(e)=>{
               const term = e.target.value
-              props.dispatch(setTextFilter(term))
+              this.props.dispatch(setTextFilter(term))
               }}
-          ><Icon>search</Icon></Input>
-          
-        </Row>
+            ><Icon>search</Icon>
+            </Input>
+          <DateRangePicker
+            startDate={this.props.filter.startDate}
+            endDate={this.props.filter.endDate}
+            onDatesChange={this.onDatesChange}
+            focusedInput={this.state.calendarFocused}
+            onFocusChange={this.onFocusChange}
+            numberOfMonths={1}
+            isOutsideRange={()=>false}
+            showClearDates={true}
+          />
+
     </div>
     )
+  }
+
 }
 
 const mapStateToProps = (state) => {
     return {
         filter: state.filter
     }
-} 
+}
 
 export default connect(mapStateToProps)(TodosFilter);

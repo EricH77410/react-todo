@@ -2,9 +2,11 @@ import React from 'react'
 import { connect } from 'react-redux';
 import { removeTodo, editTodo } from '../actions';
 import moment from 'moment';
+
 import { Button } from 'react-materialize';
 
 // TODO: Mettre à jour le localStorage lors de la suppression d'un item
+moment.locale('fr')
 
 const Todo = (props) => {
   const id = props.item.id;
@@ -13,6 +15,7 @@ const Todo = (props) => {
         <td className={props.item.done ? "done":"not-done" }>
             {props.item.text}
         </td>
+        <td>{moment(props.item.deadLine).format('L')}</td>
         <td className="action">
         <Button
             onClick={()=>props.dispatch(removeTodo({id}))}
@@ -22,7 +25,7 @@ const Todo = (props) => {
             icon='remove'
         />
         <Button
-            onClick={()=>props.setEdited(props.item)}
+            onClick={()=>props.setEdited({id})}
             floating
             icon='edit'
             tooltip='Edit element'
@@ -41,8 +44,8 @@ const Todo = (props) => {
             waves='light'
         />
         </td>
-        <td>{moment(props.item.deadLine).format()}</td>
-        
+
+
     </tr>
   )
 }

@@ -49,16 +49,17 @@ class AddTodoForm extends Component {
     }
     if (todo.text){
       this.props.dispatch(addTodo(todo));
-      this.setState(()=>({todo:'',status:'n',error:''}))
-      console.log(todo)
+      this.props.saveAll();
+      this.setState(()=>({todo:'',status:'n',error:'',deadLine:moment()}))
     } else {
       this.setState(()=>({error:'Le todo ne peut pas être vide ...'}))
     }
-    
+
   }
 
   render(){
     return(
+      <div className="container">
       <Collapsible popout onClick={
         (e)=>{
           console.log(e.target.className)
@@ -97,17 +98,19 @@ class AddTodoForm extends Component {
                   onFocusChange={this.focusChange}
                   numberOfMonths={1}
                 />
-              </Col>        
+              </Col>
               <Button
-              type="submit" 
-              floating 
-              large 
-              className='red' 
+              type="submit"
+              floating
+              large
+              className='red'
               waves='light' icon='add' />
-            </Row>        
+            </Row>
           </form>
         </CollapsibleItem>
       </Collapsible>
+      </div>
+
     );
   }
 }

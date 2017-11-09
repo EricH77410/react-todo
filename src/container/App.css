@@ -1,9 +1,10 @@
  .action {
   margin-bottom: 2rem;
-} 
+}
 
 .todo button {
   margin-right: 10px;
+  z-index: 5;
 }
 
 .todos-normal {
@@ -42,8 +43,11 @@
   width: 30px;
   height: 30px;
   padding: 10px;
-  margin-left: 10px;  
-  color: white; 
+  margin-left: 10px;
+  color: white;
 }
 
-
+.filter-area{
+  display: flex;
+  justify-content: space-around;
+}

@@ -39,16 +39,6 @@ class App extends Component {
     }
   }
 
-  count(t){
-    let total=0;
-    this.state.todos.forEach((i)=>{
-      if(i.status === t && i.done===false){
-        total++;
-      }
-    })
-    return total;
-  }
-
   removeAll(){
     this.props.dispatch(removeAll());
     this.props.dispatch(saveAll());
@@ -68,9 +58,9 @@ class App extends Component {
     });
   }
 
-  setEditedTodo(todo){
+  setEditedTodo(todoId){
     console.log('edit');
-    this.setState({editedTodo: todo});
+    this.setState({editedTodo: todoId});
   }
 
   clearEditTodo(){
@@ -107,14 +97,14 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App container">
-        {this.state.editedTodo && <EditTodo 
-        todo={this.state.editedTodo} 
+      <div className="App">
+        {this.state.editedTodo && <EditTodo
+        todo={this.state.editedTodo}
         isOpen={this.state.editedTodo ? true:false}
         close={this.clearEditTodo}
         />}
         <Header />
-        <AddTodoForm />
+        <AddTodoForm saveAll={this.saveData}/>
         <TodosFilter />
         <TodosList2
           remove={this.removeTodo}

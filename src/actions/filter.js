@@ -20,3 +20,16 @@ export const setTodoTypeFilter = (value)=>{
     }
 }
 
+export const setStartDate = (start) => {
+  return {
+    type:'SET_START_DATE',
+    start
+  }
+}
+
+export const setEndDate = (end) => {
+  return {
+    type:'SET_END_DATE',
+    end
+  }
+}

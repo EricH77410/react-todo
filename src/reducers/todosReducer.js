@@ -11,9 +11,11 @@ const todosReducer = (state = todosReducerDefaultState,action) => {
             }
             break;
         case 'SAVE_ALL':
-          const json = JSON.stringify(this.state.todos);
+          console.log('SAVEL ALL REDUCER')
+          console.log(state)
+          const json = JSON.stringify(state);
           localStorage.setItem('todos',json)
-          break;
+          return state;
         case 'ADD_TODO':
             return [...state,action.todo] //state.concat(action.expense)
         case 'REMOVE_TODO':

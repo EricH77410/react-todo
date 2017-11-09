@@ -39,7 +39,7 @@ class EditTodo extends React.Component{
         this.setState({status: e.target.value})
     }
 
-    setDone(e){      
+    setDone(e){
         this.setState({done: !this.state.done})
     }
 
@@ -57,7 +57,7 @@ class EditTodo extends React.Component{
     }
     render(){
         return (
-               <Modal 
+               <Modal
                isOpen={this.props.isOpen}
                onRequestClose={this.props.close}
                style={customStyle}
@@ -68,29 +68,35 @@ class EditTodo extends React.Component{
                             s={12} label="Todo"
                             onChange={this.handleChange}
                             value={this.state.text}
-                        />                    
-                    
+                        />
+
                         <div className="status-radio">
                             <Input onClick={this.handleRadio} name="status-edit" type='radio' label='Normal' checked={this.state.status==='n'} value="n"/>
                             <Input onClick={this.handleRadio} name="status-edit" type='radio' label='Urgent' checked={this.state.status==='u'} value="u"/>
                             <Input onClick={this.handleRadio} name="status-edit" type='radio' label='Faible' checked={this.state.status==='f'} value="f"/>
                         </div>
                         <div className="status-done">
-                            <Input 
-                                onClick={this.setDone} 
-                                name='on' 
-                                type='switch'                        
+                            <Input
+                                onClick={this.setDone}
+                                name='on'
+                                type='switch'
                                 onLabel='Done'
-                                offLabel='Pending'                                
+                                offLabel='Pending'
                                 defaultChecked={this.state.done}
                             />
                         </div>
                     <Button waves='light' onClick={this.modifiedTodo}>Save</Button>
                </form>
-               
+
                </Modal>
         )
     }
 }
 
-export default connect()(EditTodo);
+const mapStateToProps = (state, props)=>{
+  return {
+    todo: state.todos.find((t)=>t.id === props.todo.id)
+  }
+}
+
+export default connect(mapStateToProps)(EditTodo);

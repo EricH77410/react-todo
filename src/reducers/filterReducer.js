@@ -1,7 +1,11 @@
+import moment from 'moment';
+
 const filterReducerInitialState = {
     text:'',
     sortBy:'done',
-    type:''
+    type:'',
+    startDate: moment().startOf('month'),
+    endDate: moment().endOf('month')
 }
 
 const filterReducer = (state = filterReducerInitialState, action) => {
@@ -23,6 +27,18 @@ const filterReducer = (state = filterReducerInitialState, action) => {
                 ...state,
                 type
             }
+        case 'SET_START_DATE':
+          const startDate = action.start;
+          return {
+            ...state,
+            startDate
+          }
+        case 'SET_END_DATE':
+          const endDate = action.end;
+          return {
+            ...state,
+            endDate
+          }
         default:
             return state;
     }
